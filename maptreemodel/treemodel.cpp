@@ -70,7 +70,7 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
     }
 
     TreeItem *item = itemFromIndex(index);
-    if (role == Qt::DisplayRole || role == Qt::EditRole || role == Qt::BackgroundRole)
+    if (role == Qt::DisplayRole || role == Qt::EditRole)
     {
         return item->data(index.column(), role);
     }

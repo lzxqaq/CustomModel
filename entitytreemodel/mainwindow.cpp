@@ -28,11 +28,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::init()
 {
-    qDebug() << "***********2************";
 
     QList<QVariantList> data;
-
-    QTime begin = QTime::currentTime();
 
     QVariantList root;
     root << 1 << 0 << "第一层" << "属性2" << "属性3" << "属性4" << "属性5";
@@ -58,16 +55,11 @@ void MainWindow::init()
             j = 2;
         }
     }
-    QTime end = QTime::currentTime();
 
-    qDebug() <<"datasize" << data.size();
-    qDebug() <<"time" << begin.msecsTo(end);
-
-
-    begin = QTime::currentTime();
+    QTime begin = QTime::currentTime();
 
     QStringList headers;
-    headers << "属性1" << "属性2" << "属性3" << "属性4" << "属性5";
+    headers << "id" << "parentId" << "属性1" << "属性2" << "属性3" << "属性4" << "属性5";
     m_treeModel = new TreeModel(headers, m_treeView);
     m_treeView->setModel(m_treeModel);
 
@@ -126,7 +118,8 @@ void MainWindow::init()
         TreeItems.insert(node->id(), item);
     }
 
-    end = QTime::currentTime();
+    QTime end = QTime::currentTime();
+    m_treeView->expandToDepth(0);
 
     qDebug() <<"time" << begin.msecsTo(end);
 

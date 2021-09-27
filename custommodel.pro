@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 SUBDIRS += \
     entitytreemodel \
     maptreemodel \
-    listtreemodel
+    listtreemodel \
+    tablemodel

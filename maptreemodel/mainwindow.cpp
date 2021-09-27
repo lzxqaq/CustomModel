@@ -28,11 +28,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::init()
 {
-    qDebug() << "***********2************";
 
     QList<QVariantMap> data;
 
-    QTime begin = QTime::currentTime();
 
     QVariantMap root;
     root.insert("id", 1);
@@ -60,7 +58,7 @@ void MainWindow::init()
     }
 
     int j = 2;
-    for (; id < 100000; id++)
+    for (; id < 1000000; id++)
     {
         QVariantMap map;
         map.insert("id", id);
@@ -76,21 +74,23 @@ void MainWindow::init()
             j = 2;
         }
     }
-    QTime end = QTime::currentTime();
 
-    qDebug() <<"datasize" << data.size();
-    qDebug() <<"time" << begin.msecsTo(end);
+
+    QStringList headers;
+    headers << "ID" << "ParentID" << "属性1" << "属性2" << "属性3" << "属性4" << "属性5";
+    QStringList headerKeys;
+    headerKeys << "id" << "parentId" << "property1" << "property2" << "property3" << "property4" << "property5";
+    m_treeModel = new TreeModel(headers, m_treeView);
+    m_treeModel->setHeaderKeys(headerKeys);
+    m_treeView->setModel(m_treeModel);
+
+
+    QTime begin = QTime::currentTime();
 
 
     begin = QTime::currentTime();
 
-    QStringList headers;
-    headers << "属性1" << "属性2" << "属性3" << "属性4" << "属性5";
-    QStringList headerKeys;
-    headerKeys << "property1" << "property2" << "property3" << "property4" << "property5";
-    m_treeModel = new TreeModel(headers, m_treeView);
-    m_treeModel->setHeaderKeys(headerKeys);
-    m_treeView->setModel(m_treeModel);
+
 
     int parentID = -1;
     TreeItem *parent = m_treeModel->root();
@@ -132,7 +132,10 @@ void MainWindow::init()
         TreeItems.insert(data.at(i).value("id").toInt(), item);
     }
 
-    end = QTime::currentTime();
+    QTime end = QTime::currentTime();
+
+    m_treeView->expandToDepth(0);
+
 
     qDebug() <<"time" << begin.msecsTo(end);
 

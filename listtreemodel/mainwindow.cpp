@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_treeView->setSelectionMode(QTreeView::SingleSelection);        //单选，配合上面的整行就是一次选单行
     m_treeView->setFocusPolicy(Qt::NoFocus);                         //去掉鼠标移到单元格上时的虚线框
     m_treeView->header()->setStretchLastSection(true);               //最后一列自适应宽度
+
     setCentralWidget(m_treeView);
     init();
 }
@@ -28,12 +29,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::init()
 {
-    qDebug() << "***********2************";
-
     QList<QVariantList> data;
-
-    QTime begin = QTime::currentTime();
-
     QVariantList root;
     root << 1 << 0 << "第一层" << "属性2" << "属性3" << "属性4" << "属性5";
     data.append(root);
@@ -48,7 +44,7 @@ void MainWindow::init()
     }
 
     int j = 2;
-    for (; id < 10000000; id++)
+    for (; id < 100000; id++)
     {
         QVariantList list;
         list << id << j++ << "第三" << "属性2" << "属性3" << "属性4" << "属性5";
@@ -58,13 +54,10 @@ void MainWindow::init()
             j = 2;
         }
     }
-    QTime end = QTime::currentTime();
 
-    qDebug() <<"datasize" << data.size();
-    qDebug() <<"time" << begin.msecsTo(end);
+    QTime begin = QTime::currentTime();
 
 
-    begin = QTime::currentTime();
 
     QStringList headers;
     headers <<"ID" << "ParentID" << "属性1" << "属性2" << "属性3" << "属性4" << "属性5";
@@ -81,7 +74,12 @@ void MainWindow::init()
     {
 
         item = new TreeItem(m_treeModel, parent);
-        item->setDataList(data.at(0));
+        QVariantList row;
+        foreach (auto cell, data.at(0))
+        {
+            row << cell;
+        }
+        item->setDataList(row);
 
         TreeItems.insert(data.at(0).at(0).toInt(), item);
     }
@@ -107,12 +105,18 @@ void MainWindow::init()
         }
 
         item = new TreeItem(m_treeModel, parent);
-        item->setDataList(data.at(i));
+        QVariantList row;
+        foreach (auto cell, data.at(i))
+        {
+            row << cell;
+        }
+        item->setDataList(row);
 
         TreeItems.insert(data.at(i).at(0).toInt(), item);
     }
 
-    end = QTime::currentTime();
+    QTime end = QTime::currentTime();
+    m_treeView->expandToDepth(0);
 
     qDebug() <<"time" << begin.msecsTo(end);
 

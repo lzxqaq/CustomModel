@@ -38,7 +38,7 @@ public:
 private:
     QList<TreeItem*> m_children;// 子节点
     TreeItem *m_parent;// 父节点
-    QVariantList m_data;// 存储数据
+    QVariantList m_data;// 存储的数据
 
     int m_row;// 此item位于父节点中第几个
 

@@ -217,7 +217,11 @@ bool TreeModel::removeColumns(int column, int count, const QModelIndex &parent)
 }
 
 
-
+void TreeModel::setHeaders(const QStringList &headers)
+{
+    m_headers = headers;
+    emit headerDataChanged(Qt::Horizontal, 0, m_headers.size() - 1);
+}
 
 
 

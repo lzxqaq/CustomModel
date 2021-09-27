@@ -6,14 +6,18 @@ QVariant TreeNode::data(int column) const
 {
     switch (column) {
     case 0:
-        return m_property1;
+        return m_id;
     case 1:
-        return m_property2;
+        return m_parentId;
     case 2:
-        return m_property3;
+        return m_property1;
     case 3:
-        return m_property4;
+        return m_property2;
     case 4:
+        return m_property3;
+    case 5:
+        return m_property4;
+    case 6:
         return m_property5;
     default:
         return QVariant();
@@ -24,18 +28,24 @@ void TreeNode::setData(int column, const QVariant &value)
 {
     switch (column) {
     case 0:
-        m_property1 = value.toString();
+        m_id = value.toInt();
         break;
     case 1:
-        m_property2 = value.toString();
+        m_parentId = value.toInt();
         break;
     case 2:
-        m_property3 = value.toString();
+        m_property1 = value.toString();
         break;
     case 3:
-        m_property4 = value.toString();
+        m_property2 = value.toString();
         break;
     case 4:
+        m_property3 = value.toString();
+        break;
+    case 5:
+        m_property4 = value.toString();
+        break;
+    case 6:
         m_property5 = value.toString();
         break;
     default:

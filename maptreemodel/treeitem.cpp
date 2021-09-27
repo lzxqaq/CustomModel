@@ -83,11 +83,11 @@ void TreeItem::removeChildren()
 // 获取本节点第column列的数据
 QVariant TreeItem::data(int column, int role) const
 {
-    QStringList keys = m_model->m_headerKeys;
-    if (column >= keys.size())
-    {
-        return QVariant();
-    }
+    QStringList &keys = m_model->m_headerKeys;
+//    if (column >= keys.size())
+//    {
+//        return QVariant();
+//    }
     if (role == Qt::DisplayRole || role == Qt::EditRole)
     {
         return m_data.value(keys.at(column));
@@ -114,7 +114,7 @@ void TreeItem::setData(int column, const QVariant &value, int role)
 
 void TreeItem::setDataMap(const QVariantMap &value)
 {
-    m_data = value;
+    m_data = QVariantMap(value);
 }
 
 QVariantMap TreeItem::dataMap() const
